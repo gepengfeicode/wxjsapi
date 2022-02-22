@@ -1,0 +1,44 @@
+<html>
+
+<body>
+    <form action="#">
+        <h1>APPID:<input type="text" id="appid" value="wx93767bd5908c11e3"></br></h1>
+        <h1>timeStamp:<input type="text" id="timeStamp" value="1645513312"></br></h1>
+        <h1>nonceStr:<input type="text" id="nonceStr" value="64306aca87e049f8930175628825399b"></br></h1>
+        <h1>package:<input type="text" id="package" value="prepay_id=wx22150152259419914f66cf60265a830000"></br></h1>
+        <h1>signType:<input type="text" id="signType" value="RSA"></br></h1>
+        <h1>paySign:<input type="text" id="paySign" value="iLlqvXFZwF4WMdwAcuEWcwoS/9Xf5jzA4a4dQgWB18dYQCihT6otJlZfQZvieXWy3FrLFVTjImksLdP1nmFUrWD53SovGEX3mGMfIxLmTx4XQsVkiGFtB95IPQisacEP2kO9OQvWbi+S2M8Sl/3cnpUw4M0jAGqky/RZarkYUMDk+wX+2wq2RTLP0iI6jXYW+ij/HtjPJtthDoZop46o9cccepuOWAkOUyJzE8HgV7AtTwXNiyB+xnvScZKClF5Tyjx2IvH6hoMGWCJacRu15C+P2AqX2cWEaaHpPhd0Cfz2gRuMy7C35eUA8AAqm2yLiofcVviI9Qbd2VtQj8jRkw==&"></br></h1>
+        <h1><input type="button" value="confirm Pay" onclick="onBridgeReady()"></h1>
+    </form>
+
+</body>
+<script type="text/javascript">
+    function onBridgeReady(){
+        WeixinJSBridge.invoke(
+            'getBrandWCPayRequest', {
+                "appId":document.getElementById("appid").value,     //公众号ID，由商户传入
+                "timeStamp":document.getElementById("timeStamp").value,         //时间戳，自1970年以来的秒数
+                "nonceStr":document.getElementById("nonceStr").value, //随机串
+                "package":document.getElementById("package").value,
+                "signType":document.getElementById("signType").value,         //微信签名方式：
+                "paySign":document.getElementById("paySign").value //微信签名
+            },
+            function(res){
+                if(res.err_msg == "get_brand_wcpay_request:ok" ){
+                    // 使用以上方式判断前端返回,微信团队郑重提示：
+                    //res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
+                }
+            });
+    }
+    if (typeof WeixinJSBridge == "undefined"){
+        if( document.addEventListener ){
+            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+        }else if (document.attachEvent){
+            document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+            document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+        }
+    }else{
+        onBridgeReady();
+    }
+</script>
+</html>
